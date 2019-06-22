@@ -1,16 +1,18 @@
-import os
 import subprocess as sp
-import pyping
-def  Ping( ipaddress):
-    status, result = sp.getstatusoutput("ping -c1 -w2 " + str(ipaddress))
-    if "TTL" and "time" in result:
-        print("System " + str(ipaddress) + " is UP !")
+
+
+def ping(ip_address):
+    status, result = sp.getstatusoutput("ping -c1 -w2 " + str(ip_address))
+    if "Received = 4" in result:
+        print("System " + str(ip_address) + " is UP !")
+    elif "Received = 0" in result:
+        print("System " + str(ip_address) + " is DOWN !")
     else:
-        print("System " + str(ipaddress) + " is DOWN !")
+        print("System " + str(ip_address) + " is Unstable !")
 
 
-with open('ip_adress.txt') as fname:
-    ip_addrs=fname.read().splitlines()
+with open('ip_address.txt') as file_name:
+    ip_addrs = file_name.read().splitlines()
 
 for ip_addr in ip_addrs:
-   Ping(ip_addr)
+    ping(ip_addr)
